@@ -33,7 +33,19 @@ async function getAllUsers() {
       throw error;
     }
   }
-  
+
+  async function getAllTags() {
+    try {
+        const { rows } = await client.query(
+            `SELECT *
+            FROM tags;
+          `);
+        
+          return rows;
+      } catch (error) {
+        throw error;
+      }
+  }
 
 async function getPostsByUser(userId) {
     try {
@@ -315,6 +327,7 @@ module.exports = {
     createPost,
     getAllUsers,
     getAllPosts,
+    getAllTags,
     getPostsByTagName,
     getUserById,
     updateUser,
