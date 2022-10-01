@@ -144,7 +144,7 @@ async function createInitialUsers() {
             "postId" INTEGER REFERENCES posts(id),
             "tagId" INTEGER REFERENCES tags(id),
             UNIQUE ("postId", "tagId")
-        )
+        );
       `);
   
       console.log("Finished building tables!");
