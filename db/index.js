@@ -270,7 +270,7 @@ async function addTagsToPost(postId, tagList) {
 async function updateUser(id, fields = {}) {
     // build the set string
     const setString = Object.keys(fields).map(
-      (key, index) => `"${ key }"=$${ index + 1 }`
+      (key, index) => `"${ key }"=$${ index + 2 }`
     ).join(', ');
   
     // return early if this is called without fields
@@ -282,9 +282,9 @@ async function updateUser(id, fields = {}) {
       const { rows: [user] } = await client.query(`
         UPDATE users
         SET ${ setString }
-        WHERE id=${ id }
+        WHERE id=$1
         RETURNING *;
-      `, Object.values(fields));
+      `, [id, ...Object.values(fields)]);
   
       return user;
     } catch (error) {
